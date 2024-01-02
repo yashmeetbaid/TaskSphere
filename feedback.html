@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background-color:#f4f4f4;
+      color:  rgb(179, 131, 226);
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: rgb(179, 131, 226);
+;
+;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin: 10px 0;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
+
+    button {
+      background-color:  rgb(179, 131, 226);
+      color: #fff;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color:#ecf0f1;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>TaskSphere</h1>
+    <p>We value your feedback!</p>
+  </header>
+
+  <main>
+    <h2>Provide Your Feedback</h2>
+    <form>
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Your Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="feedback">Suggestion/Feedback:</label>
+      <textarea id="feedback" name="feedback" required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Whiteboard</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+
+        h1 {
+  color: rgb(179, 131, 226);
+  font-size: 10rem;
+  text-align: center;
+  opacity: 0.4;
+}
+
+        #whiteboard-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #whiteboard {
+            border: 1px solid #ddd;
+            background-color: #fff;
+            cursor: crosshair;
+            border-radius: 8px;
+        }
+
+        input[type="radio"] {
+            margin: 10px;
+        }
+
+        #controls {
+            margin-top: 20px;
+        }
+
+        #clearBtn {
+            background-color: rgb(179, 131, 226);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="color"],
+        input[type="range"] {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>White Board</h1>
+
+    <div id="whiteboard-container">
+        <canvas id="whiteboard" width="800" height="600"></canvas>
+        <div id="controls">
+            <label for="drawMode">Draw</label>
+            <input type="radio" id="drawMode" name="mode" checked>
+            <label for="eraseMode">Erase</label>
+            <input type="radio" id="eraseMode" name="mode">
+
+            <label for="colorPicker">Color:</label>
+            <input type="color" id="colorPicker" value="#3498db">
+
+            <label for="thicknessRange">Thickness:</label>
+            <input type="range" id="thicknessRange" min="1" max="20" value="5">
+
+            <button id="clearBtn">Clear</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const canvas = document.getElementById("whiteboard");
+            const context = canvas.getContext("2d");
+
+            let painting = false;
+            let drawMode = true;
+
+            function startPosition(e) {
+                painting = true;
+                draw(e);
+            }
+
+            function endPosition() {
+                painting = false;
+                context.beginPath();
+            }
+
+            function draw(e) {
+                if (!painting) return;
+
+                context.lineWidth = document.getElementById("thicknessRange").value;
+                context.lineCap = "round";
+
+                if (drawMode) {
+                    context.strokeStyle = document.getElementById("colorPicker").value;
+                } else {
+                    context.strokeStyle = "#fff"; // Erasing color (white)
+                }
+
+                context.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+                context.stroke();
+                context.beginPath();
+                context.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+            }
+
+            function clearCanvas() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+            }
+
+            canvas.addEventListener("mousedown", startPosition);
+            canvas.addEventListener("mouseup", endPosition);
+            canvas.addEventListener("mousemove", draw);
+
+            const drawModeInput = document.getElementById("drawMode");
+            const eraseModeInput = document.getElementById("eraseMode");
+
+            drawModeInput.addEventListener("change", function() {
+                if (drawModeInput.checked) {
+                    drawMode = true;
+                }
+            });
+
+            eraseModeInput.addEventListener("change", function() {
+                if (eraseModeInput.checked) {
+                    drawMode = false;
+                }
+            });
+
+            document.getElementById("clearBtn").addEventListener("click", clearCanvas);
+        });
+    </script>
+
+</body>
+</html>
